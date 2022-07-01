@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Enumerations\" />
+    <Folder Include="DTOs\Ipfs\" />
+    <Folder Include="DTOs\SearchCurp\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="6.0.0" />
+    <PackageReference Include="Nethereum.Web3" Version="4.5.0" />
+    <PackageReference Include="System.Text.Json" Version="6.0.4" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
+    <PackageReference Include="RestSharp" Version="107.3.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="BlockchainDtos\Attest.c" />
+    <None Remove="DTOs\Ipfs\" />
+    <None Remove="RestSharp" />
+    <None Remove="Microsoft.AspNetCore.Http" />
+    <None Remove="DTOs\SearchCurp\" />
+  </ItemGroup>
+</Project>
