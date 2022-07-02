@@ -36,7 +36,7 @@ namespace Middelware
             services.AddSwaggerGen(options => {
                 options.SwaggerDoc("v1", new OpenApiInfo {
                     Version = "v1",
-                    Title = "Dicio Alliance Middelware",
+                    Title = "Banco Azteca Nodo | Dicio Alliance",
                     Description = "Middelware Backend, Blockchain & IPFS",
                     TermsOfService = new Uri("https://dicio.com"),
                 });
