@@ -22,6 +22,42 @@ namespace Baas.Core.Services
             _ipfs = ipfs;
         }
 
+        public async Task<SearchDetailDTO> DetailSearchAsync(string uuid)
+        {
+            try
+            {
+                /*
+                *
+                */
+                VaultSignerDTO signer = _vault.GetSigner();
+                SearchService contract = new SearchService(signer);
+                SearchDetailDTO search = await contract.DetailSearch(uuid);
+                return search;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw new Exception(ex.Message);
+            }
+        }
+        public async Task<ParticipationDTO> DetailRecordsAsync(string uuid, int id)
+        {
+            try
+            {
+                /*
+                *
+                */
+                VaultSignerDTO signer = _vault.GetSigner();
+                SearchService contract = new SearchService(signer);
+                ParticipationDTO search = await contract.DetailParticipation(uuid, id);
+                return search;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw new Exception(ex.Message);
+            }
+        }
 
         public async Task<ResponseCurpDTO> AddSearchAsync(string curp, string uuid, IFormFile file)
         {
@@ -31,13 +67,7 @@ namespace Baas.Core.Services
                  *  Vault 
                 */
                 VaultSignerDTO signer = _vault.GetSigner();
-                //VaultSignerDTO signer = new VaultSignerDTO
-                //{
-                //    PublicKey = "0x08bC5fB910C00253B0bc49a9B2a3B177E08a7877",
-                //    PrivateKey = "0x0a5dc89207866cdf0f32852f2be845640369cf911490983c870470b6aff2cd8a",
-                //    Mnemonic = "algo"
-                //};
-
+                
                 /*
                  * Blockchain consulta
                 */
@@ -67,6 +97,7 @@ namespace Baas.Core.Services
 
                 ResponseCurpDTO result = new ResponseCurpDTO
                 {
+                    Uuid = uuid,
                     IpfsData = IpfsHash,
                     BlockchainData = blockchain
                 };
@@ -80,23 +111,7 @@ namespace Baas.Core.Services
                 throw new CustomException(ex.Message);
             }
         }
-
-        public async Task<ResponseCurpDTO> InfoSearchAsync(string uuid)
-        {
-            try
-            {
-                ResponseCurpDTO result = new ResponseCurpDTO();
-                return result;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                throw new CustomException(ex.Message);
-            }
-
-        }
-
-        public async Task<ResponseCurpDTO> ParticipateAsync(string curp, string uuid, IFormFile file)
+        public async Task<ResponseCurpDTO> AddRecordAsync(string curp, string uuid, IFormFile file)
         {
             try
             {
@@ -122,11 +137,12 @@ namespace Baas.Core.Services
                  *  Blockchain
                 */
                 SearchService contract = new SearchService(signer);
-                BlockchainData blockchain = await contract.SearchCurpAsync(uuid, cid, curp);
+                BlockchainData blockchain = await contract.ParticipateCurpAsync(uuid, cid);
 
 
                 ResponseCurpDTO result = new ResponseCurpDTO
                 {
+                    Uuid = uuid,
                     IpfsData = IpfsHash,
                     BlockchainData = blockchain
                 };
@@ -141,26 +157,19 @@ namespace Baas.Core.Services
 
         }
 
-        public async Task<ResponseCurpDTO> ChangeQuorumAsync(int quorum)
+
+        public async Task<int> GetCurrentQuorumAsync()
         {
             try
             {
                 /*
-                 *  Vault 
+                *  Vault 
                 */
-                VaultSignerDTO signer = _vault.GetSigner();                
-
-                /*
-                 *  Blockchain
-                */
+                VaultSignerDTO signer = _vault.GetSigner();
+                
                 SearchService contract = new SearchService(signer);
-                BlockchainData blockchain = await contract.SetQuorumAsync(quorum);
 
-
-                ResponseCurpDTO result = new ResponseCurpDTO
-                {                    
-                    BlockchainData = blockchain
-                };
+                int result = await contract.GetQuorumAsync();
 
                 return result;
             }
@@ -169,7 +178,48 @@ namespace Baas.Core.Services
                 Console.WriteLine(ex.Message);
                 throw new CustomException(ex.Message);
             }
+        }
+        public async Task<BlockchainData> IncrementQuorumAsync()
+        {
+            try
+            {
+                VaultSignerDTO signer = _vault.GetSigner();
 
+                SearchService contract = new SearchService(signer);
+
+                int currentQuorum = await GetCurrentQuorumAsync();
+
+                BlockchainData result = await contract.SetQuorumAsync(currentQuorum + 1);
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw new CustomException(ex.Message);
+            }
+        }
+        public async Task<BlockchainData> DecrementQuorumAsync()
+        {
+            try
+            {
+                VaultSignerDTO signer = _vault.GetSigner();
+
+                SearchService contract = new SearchService(signer);
+
+                int currentQuorum = await GetCurrentQuorumAsync();
+
+                if (currentQuorum == 0) throw new CustomException("Ya no hay participantes, no es posible disminuir el quorum"); 
+
+                BlockchainData result = await contract.SetQuorumAsync(currentQuorum - 1);
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw new CustomException(ex.Message);
+            }
         }
 
     }

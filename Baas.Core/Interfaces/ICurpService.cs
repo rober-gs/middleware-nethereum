@@ -6,9 +6,14 @@ namespace Baas.Core.Interfaces
 {
     public interface ICurpService
     {
+        Task<SearchDetailDTO> DetailSearchAsync(string uuid);
+        Task<ParticipationDTO> DetailRecordsAsync(string uuid, int id);
+
         Task<ResponseCurpDTO> AddSearchAsync(string curp, string uuid, IFormFile file);
-        Task<ResponseCurpDTO> InfoSearchAsync(string uuid);
-        Task<ResponseCurpDTO> ParticipateAsync(string curp, string uuid, IFormFile file);
-        Task<ResponseCurpDTO> ChangeQuorumAsync(int quorum);
+        Task<ResponseCurpDTO> AddRecordAsync(string curp, string uuid, IFormFile file);
+
+        Task<BlockchainData> IncrementQuorumAsync();
+        Task<BlockchainData> DecrementQuorumAsync();
+        Task<int> GetCurrentQuorumAsync();
     }
 }
