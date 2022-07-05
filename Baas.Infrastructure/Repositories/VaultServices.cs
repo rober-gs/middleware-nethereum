@@ -54,7 +54,8 @@ namespace Baas.Infrastructure
                 VaultSignerDTO signer = new VaultSignerDTO(){
                     Mnemonic = vault.Data.Mnemonic,
                     PrivateKey = vault.Data.PrivateKey,
-                    PublicKey = vault.Data.PublicKey
+                    PublicKey = vault.Data.PublicKey,
+                    Name = vault.Data.Name,
                 };
 
                 return signer;

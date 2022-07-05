@@ -25,17 +25,11 @@
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Content Remove="Controllers\examplesRequest.json" />
+  <ItemGroup>    
     <Content Remove="Request\examplesRequest.json" />
     <Content Remove="Properties\launchSettings %28copiar%29.json" />
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Controllers\examplesRequest.json">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </EmbeddedResource>
+  <ItemGroup>    
     <EmbeddedResource Include="Request\examplesRequest.json">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
