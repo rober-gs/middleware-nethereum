@@ -32,6 +32,7 @@ namespace Middelware
             services.AddTransient<IVaultServices, VaultServices>();
             services.AddTransient<IIpfsService, IpfsService>();
             services.AddTransient<ICurpService, CurpService>();
+            services.AddTransient<IAccountService, AccountService>();
             
             services.AddSwaggerGen(options => {
                 options.SwaggerDoc("v1", new OpenApiInfo {

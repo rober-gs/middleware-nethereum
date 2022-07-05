@@ -183,6 +183,8 @@ namespace Baas.Core.BlockchainDtos
             public virtual byte State { get; set; }
             [Parameter("uint256", "records", 7)]
             public virtual BigInteger Records { get; set; }
+            [Parameter("uint256", "endDate", 8)]
+            public virtual BigInteger EndDate { get; set; }
         }
 
 

@@ -23,6 +23,7 @@
         public string Mnemonic { get; set; }        
         public string PrivateKey { get; set; }        
         public string PublicKey { get; set; }
+        public string Name { get; set; }
     }
 
     public class VaultSignerDTO
@@ -30,7 +31,7 @@
         public string Mnemonic { get; set; }
         public string PrivateKey { get; set; }
         public string PublicKey { get; set; }
-
+        public string Name { get; set; }
     }
 
 }
