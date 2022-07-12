@@ -8,10 +8,9 @@ namespace Baas.Core.Interfaces
     {
         Task<SearchDetailDTO> DetailSearchAsync(string uuid);
         Task<ParticipationDTO> DetailRecordsAsync(string uuid, int id);
-
         Task<ResponseCurpDTO> AddSearchAsync(string curp, string uuid, IFormFile file);
         Task<ResponseCurpDTO> AddRecordAsync(string curp, string uuid, IFormFile file);
-
+        Task<ResponseCurpDTO> AddScoreAsync(string curp, string uuid, IFormFile file);
         Task<BlockchainData> IncrementQuorumAsync();
         Task<BlockchainData> DecrementQuorumAsync();
         Task<int> GetCurrentQuorumAsync();

@@ -35,8 +35,8 @@ namespace Baas.Core.BlockchainDtos
         {
             [Parameter("string", "_uuid", 1)]
             public virtual string Uuid { get; set; }
-            [Parameter("uint256", "index", 2)]
-            public virtual BigInteger Index { get; set; }
+            [Parameter("uint256", "_id", 2)]
+            public virtual BigInteger Id { get; set; }
         }
 
         public partial class DetailSearchFunction : DetailSearchFunctionBase { }
@@ -52,6 +52,17 @@ namespace Baas.Core.BlockchainDtos
 
         [Function("Participate", "uint256")]
         public class ParticipateFunctionBase : FunctionMessage
+        {
+            [Parameter("string", "_uuid", 1)]
+            public virtual string Uuid { get; set; }
+            [Parameter("string", "_cid", 2)]
+            public virtual string Cid { get; set; }
+        }
+
+        public partial class SetScoreFunction : SetScoreFunctionBase { }
+
+        [Function("SetScore")]
+        public class SetScoreFunctionBase : FunctionMessage
         {
             [Parameter("string", "_uuid", 1)]
             public virtual string Uuid { get; set; }
@@ -143,14 +154,20 @@ namespace Baas.Core.BlockchainDtos
             public virtual string Uuid { get; set; }
             [Parameter("string", "cid", 3, false)]
             public virtual string Cid { get; set; }
-            [Parameter("uint256", "index", 4, false)]
-            public virtual BigInteger Index { get; set; }
+            [Parameter("uint256", "id", 4, false)]
+            public virtual BigInteger Id { get; set; }
         }
 
+        public partial class SetScoreEventEventDTO : SetScoreEventEventDTOBase { }
 
-
-
-
+        [Event("SetScoreEvent")]
+        public class SetScoreEventEventDTOBase : IEventDTO
+        {
+            [Parameter("string", "uuid", 1, false)]
+            public virtual string Uuid { get; set; }
+            [Parameter("string", "cid", 2, false)]
+            public virtual string Cid { get; set; }
+        }
         public partial class DetailParticipationOutputDTO : DetailParticipationOutputDTOBase { }
 
         [FunctionOutput]
@@ -177,15 +194,21 @@ namespace Baas.Core.BlockchainDtos
             public virtual string Curp { get; set; }
             [Parameter("string", "cid", 4)]
             public virtual string Cid { get; set; }
-            [Parameter("uint256", "createDate", 5)]
-            public virtual BigInteger CreateDate { get; set; }
-            [Parameter("uint8", "state", 6)]
+            [Parameter("string", "score", 5)]
+            public virtual string Score { get; set; }
+            [Parameter("uint256", "createBroadcast", 6)]
+            public virtual BigInteger CreateBroadcast { get; set; }
+            [Parameter("uint256", "endBroadcast", 7)]
+            public virtual BigInteger EndBroadcast { get; set; }
+            [Parameter("uint8", "state", 8)]
             public virtual byte State { get; set; }
-            [Parameter("uint256", "records", 7)]
+            [Parameter("uint256", "records", 9)]
             public virtual BigInteger Records { get; set; }
-            [Parameter("uint256", "endDate", 8)]
+            [Parameter("uint256", "endDate", 10)]
             public virtual BigInteger EndDate { get; set; }
         }
+
+
 
 
 
@@ -206,5 +229,6 @@ namespace Baas.Core.BlockchainDtos
             [Parameter("uint256", "", 1)]
             public virtual BigInteger ReturnValue1 { get; set; }
         }
+
     }
 }

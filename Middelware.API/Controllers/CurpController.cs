@@ -70,6 +70,32 @@ namespace Middelware.Controllers
                 throw new CustomException(exception.Message);
             }
         }
+        [HttpPost("score")]
+        public async Task<ApiResponse<ResponseCurpDTO>> ScoreAsync([FromForm] CurpRequest createdSearch)
+        {
+            try
+            {
+                string curp = createdSearch.Curp;
+                string uuid = createdSearch.Uuid;
+                var file = createdSearch.File;
+
+                if (string.IsNullOrEmpty(curp)) throw new CustomException("CURP is required");
+                if (string.IsNullOrEmpty(uuid)) throw new CustomException("UUID is required");
+                if (file is null) throw new CustomException("File is required");
+                if (file.ContentType != "application/json") throw new CustomException("File is not a json Type");
+
+                _logger.LogInformation("Participate ");
+
+                ResponseCurpDTO data = await _curp.AddScoreAsync(curp, uuid, createdSearch.File);
+                var response = new ApiResponse<ResponseCurpDTO>(data);
+                return response;
+
+            }
+            catch (Exception exception)
+            {
+                throw new CustomException(exception.Message);
+            }
+        }
         [HttpGet("searchDetail/{uuid}")]
         public async Task<ApiResponse<SearchDetailDTO>> SearchDetail(string uuid)
         {
