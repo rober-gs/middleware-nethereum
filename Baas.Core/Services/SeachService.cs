@@ -164,7 +164,9 @@ namespace Baas.Core.Services
                     Owner = data.Owner,
                     Uuid = data.Uuid,
                     Cid = data.Cid,
-                    CreateDate = UnixTimeToDateTime(data.CreateDate),
+                    Curp = data.Curp,
+                    CreateBroadcast = UnixTimeToDateTime(data.CreateBroadcast),
+                    EndBroadcast =UnixTimeToDateTime(data.EndBroadcast),
                     //TODO realizar enum
                     State = data.State,
                     Records = (int)data.Records,
@@ -195,8 +197,7 @@ namespace Baas.Core.Services
             {
                 throw new CustomException("Algo a pasado coño " + ex.Message);
             }
-        }
-                
+        }        
         public async Task<ParticipationDTO> DetailParticipation(string uuid, int id)
         {
             try
@@ -204,7 +205,7 @@ namespace Baas.Core.Services
                 DetailParticipationFunction function = new DetailParticipationFunction
                 {
                     Uuid = uuid,
-                    Index = id
+                    Id = id
                 };
 
                 DetailParticipationOutputDTO data = await _contract.Handler.QueryDeserializingToObjectAsync<DetailParticipationFunction, DetailParticipationOutputDTO>(function);
@@ -218,6 +219,38 @@ namespace Baas.Core.Services
 
                 return dataMappig;
 
+            }
+            catch (Exception ex)
+            {
+                throw new CustomException("Algo a pasado coño " + ex.Message);
+            }
+        }
+        
+        public async Task<BlockchainData> ScoreSearchAsync(string uuid, string cid)
+        {
+            try
+            {
+                SetScoreFunction function = new SetScoreFunction
+                {
+                    Uuid = uuid,
+                    Cid = cid
+                };
+
+                TransactionReceipt txnReceipt = await _contract.Handler.SendRequestAndWaitForReceiptAsync(function);               
+
+                BlockchainData blockchainData = new BlockchainData
+                {
+                    TransactionHash = txnReceipt.TransactionHash,
+                    BlockHash = txnReceipt.BlockHash,
+                    BlockNumber = (long)txnReceipt.BlockNumber.Value,
+                    GasUsed = txnReceipt.GasUsed.Value.ToString(),
+                    Status = (long)txnReceipt.Status.Value
+                };
+
+                blockchainData.TransactionHash = txnReceipt.TransactionHash;                
+
+                return blockchainData;
+                
             }
             catch (Exception ex)
             {

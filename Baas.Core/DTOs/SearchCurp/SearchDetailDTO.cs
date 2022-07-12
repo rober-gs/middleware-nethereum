@@ -18,8 +18,12 @@ namespace Baas.Core.DTOs
         public string Uuid { get; set; }
         [JsonPropertyName("cid")]
         public string Cid { get; set; }
-        [JsonPropertyName("create-date")]
-        public DateTime CreateDate { get; set; }
+        [JsonPropertyName("curp")]
+        public string Curp { get; set; }
+        [JsonPropertyName("create-broadcast")]
+        public DateTime CreateBroadcast { get; set; }
+        [JsonPropertyName("end-broadcast")]
+        public DateTime EndBroadcast { get; set; }
         [JsonPropertyName("state")]
         public byte State{ get; set; }
         [JsonPropertyName("records")]
