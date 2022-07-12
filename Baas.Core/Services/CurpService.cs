@@ -25,10 +25,7 @@ namespace Baas.Core.Services
         public async Task<SearchDetailDTO> DetailSearchAsync(string uuid)
         {
             try
-            {
-                /*
-                *
-                */
+            {                
                 VaultSignerDTO signer = _vault.GetSigner();
                 SearchService contract = new SearchService(signer);
                 SearchDetailDTO search = await contract.DetailSearch(uuid);
@@ -125,12 +122,12 @@ namespace Baas.Core.Services
                 /*
                  *  IPFS  
                 */
+
                 string pathComplete = sbPath.AppendFormat("%2F{0}%2F{1}%2F{2}_{3}",
                        curp,
                        uuid,
                        signer.PublicKey,
-                       file.FileName).ToString();
-
+                       file.FileName).ToString(); 
                 Entry IpfsHash = await _ipfs.FileWrite(pathComplete, file);
                 string cid = IpfsHash.Hash;
                 /*
@@ -156,8 +153,49 @@ namespace Baas.Core.Services
             }
 
         }
+        public async Task<ResponseCurpDTO> AddScoreAsync(string curp, string uuid, IFormFile file)
+        {
+            try
+            {   
+                StringBuilder sbPath = new StringBuilder();
 
+                /*
+                 *  Vault 
+                */
+                VaultSignerDTO signer = _vault.GetSigner(); 
 
+                /*
+                 *  IPFS  
+                */
+                string pathComplete = sbPath.AppendFormat("%2F{0}%2F{1}%2F{2}_{3}",
+                       curp,
+                       uuid,
+                       signer.PublicKey,
+                       file.FileName).ToString();
+                Entry IpfsHash = await _ipfs.FileWrite(pathComplete, file);
+                string cid = IpfsHash.Hash;
+
+                /*
+                 *  Blockchain
+                */
+                SearchService contract = new SearchService(signer);
+                BlockchainData blockchain = await contract.ScoreSearchAsync(uuid, cid);
+
+                ResponseCurpDTO result = new ResponseCurpDTO
+                {
+                    Uuid = uuid,
+                    IpfsData = IpfsHash,
+                    BlockchainData = blockchain
+                };
+
+                return result;
+            }
+             catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw new CustomException(ex.Message);
+            }
+        }
         public async Task<int> GetCurrentQuorumAsync()
         {
             try
