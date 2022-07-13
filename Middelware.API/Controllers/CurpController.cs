@@ -29,8 +29,7 @@ namespace Middelware.Controllers
 
                 if (string.IsNullOrEmpty(curp)) throw new CustomException("CURP is required");
                 if (string.IsNullOrEmpty(uuid)) throw new CustomException("UUID is required");
-                if (createdSearch.File is null) throw new CustomException("File is required");
-                if (createdSearch.File.ContentType != "application/json") throw new CustomException("File is not a json Type");
+                if (createdSearch.File is null) throw new CustomException("File is required");                
 
                 _logger.LogInformation("Search Curp! ");
 
