@@ -25,7 +25,6 @@ namespace Baas.Core.Services
             _account = new Account(account.PrivateKey, Chain.Rinkeby);
             _contract = new Web3Service(SMARTCONTRACT_ADDRESS_SEARCH_CURP, _account);
         }
-
         public async Task<BlockchainData> SearchCurpAsync(string uuid, string cid, string curp)
         {
             try
@@ -90,7 +89,6 @@ namespace Baas.Core.Services
                 throw new CustomException("Algo a pasado coño " + ex.Message);
             }
         }
-
         public async Task<int> GetQuorumAsync()
         {
             try
@@ -134,7 +132,6 @@ namespace Baas.Core.Services
                 throw new CustomException("Algo a pasado coño " + ex.Message);
             }
         }
-
         public async Task<DetailSearchOutputDTO> SearchExist(string uuid)
         {
             try
@@ -164,6 +161,8 @@ namespace Baas.Core.Services
                     Owner = data.Owner,
                     Uuid = data.Uuid,
                     Cid = data.Cid,
+                    //TODO Quitar la URL en duro y pasarla por environtment  
+                    CidUri = string.Concat("https://infura-ipfs.io/ipfs/", data.Cid),
                     Curp = data.Curp,
                     CreateBroadcast = UnixTimeToDateTime(data.CreateBroadcast),
                     EndBroadcast =UnixTimeToDateTime(data.EndBroadcast),
@@ -213,6 +212,8 @@ namespace Baas.Core.Services
                 ParticipationDTO dataMappig = new ParticipationDTO
                 {
                     Owner = data.Participant,
+                    //TODO Quitar la URL en duro y pasarla por environtment  
+                    CidUri = string.Concat("https://infura-ipfs.io/ipfs/", data.Cid),
                     Cid = data.Cid,
                     CreateDate = UnixTimeToDateTime(data.RecordDate)
                 };
@@ -224,8 +225,7 @@ namespace Baas.Core.Services
             {
                 throw new CustomException("Algo a pasado coño " + ex.Message);
             }
-        }
-        
+        }      
         public async Task<BlockchainData> ScoreSearchAsync(string uuid, string cid)
         {
             try
