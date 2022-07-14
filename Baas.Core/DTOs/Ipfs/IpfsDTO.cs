@@ -114,5 +114,7 @@ namespace Baas.Core.DTOs
 
         [JsonPropertyName("cid")]
         public string Hash { get; set; }
+        [JsonPropertyName("cid-uri")]
+        public string CidUri { get; set; }
     }
 }
