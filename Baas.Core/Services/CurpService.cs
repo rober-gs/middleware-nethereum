@@ -77,6 +77,7 @@ namespace Baas.Core.Services
                 /*
                  *  IPFS  
                 */
+                //TODO la logica del PATH no se esta implementado 
                 StringBuilder sbPath = new StringBuilder();
                 string pathComplete = sbPath.AppendFormat("%2F{0}%2F{1}%2F{2}%2F{3}",
                        uuid,
