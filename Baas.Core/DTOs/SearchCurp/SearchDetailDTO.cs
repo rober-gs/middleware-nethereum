@@ -10,24 +10,35 @@ namespace Baas.Core.DTOs
         public List<ParticipationDTO> Records { get; set; }
     }
 
+    //TODO Factorizar para heredar propiendas en comun 
     public class BroadcastDTO
     {
         [JsonPropertyName("owner")]
         public string Owner { get; set; }
+
         [JsonPropertyName("uuid")]
         public string Uuid { get; set; }
+        
         [JsonPropertyName("cid")]
         public string Cid { get; set; }
+        [JsonPropertyName("cid-uri")]
+        public string CidUri { get; set; }
+
         [JsonPropertyName("curp")]
         public string Curp { get; set; }
+
         [JsonPropertyName("create-broadcast")]
         public DateTime CreateBroadcast { get; set; }
+
         [JsonPropertyName("end-broadcast")]
         public DateTime EndBroadcast { get; set; }
+
         [JsonPropertyName("state")]
         public byte State{ get; set; }
+
         [JsonPropertyName("records")]
         public int Records{ get; set; }
+        
         [JsonPropertyName("end-date")]
         public DateTime? EndDate { get; set; }
     }
@@ -36,8 +47,12 @@ namespace Baas.Core.DTOs
     {
         [JsonPropertyName("participant")]
         public string Owner { get; set; }
+
         [JsonPropertyName("cid")]
         public string Cid { get; set; }
+        [JsonPropertyName("cid-uri")]
+        public string CidUri { get; set; }
+
         [JsonPropertyName("create-date")]
         public DateTime CreateDate { get; set; }
     }

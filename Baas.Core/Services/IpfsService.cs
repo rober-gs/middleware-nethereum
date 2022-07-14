@@ -118,6 +118,8 @@ namespace Baas.Core.Services
                 if (!response.IsSuccessful) throw new CustomException("NO PUDE METERLO AL IPFS" + response);
 
                     data = JsonConvert.DeserializeObject<Entry>(response.Content);
+                    //TODO ver opcion de un constrructor para que se genere en automatico
+                    data.CidUri = string.Concat("https://infura-ipfs.io/ipfs/", data.Hash);
 
                 /*
                  * resource = string.Concat("files/cp?", "arg=%2Fipfs%2F", data.Hash, "&arg=", path, "&parents=true");                    
