@@ -22,7 +22,7 @@ namespace Baas.Core.DTOs
         [JsonPropertyName("cid")]
         public string Cid { get; set; }
         [JsonPropertyName("cid-uri")]
-        public string CidUri { get; set; }
+        public Uri CidUri { get; set; }
 
         [JsonPropertyName("curp")]
         public string Curp { get; set; }
@@ -51,7 +51,7 @@ namespace Baas.Core.DTOs
         [JsonPropertyName("cid")]
         public string Cid { get; set; }
         [JsonPropertyName("cid-uri")]
-        public string CidUri { get; set; }
+        public Uri CidUri { get; set; }
 
         [JsonPropertyName("create-date")]
         public DateTime CreateDate { get; set; }

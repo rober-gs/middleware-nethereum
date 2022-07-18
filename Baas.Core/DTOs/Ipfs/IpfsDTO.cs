@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 namespace Baas.Core.DTOs
@@ -115,6 +116,6 @@ namespace Baas.Core.DTOs
         [JsonPropertyName("cid")]
         public string Hash { get; set; }
         [JsonPropertyName("cid-uri")]
-        public string CidUri { get; set; }
+        public Uri CidUri { get; set; }
     }
 }

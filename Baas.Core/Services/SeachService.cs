@@ -162,7 +162,7 @@ namespace Baas.Core.Services
                     Uuid = data.Uuid,
                     Cid = data.Cid,
                     //TODO Quitar la URL en duro y pasarla por environtment  
-                    CidUri = string.Concat("https://infura-ipfs.io/ipfs/", data.Cid),
+                    CidUri = new Uri(string.Concat("https://infura-ipfs.io/ipfs/", data.Cid)),
                     Curp = data.Curp,
                     CreateBroadcast = UnixTimeToDateTime(data.CreateBroadcast),
                     EndBroadcast =UnixTimeToDateTime(data.EndBroadcast),
@@ -213,7 +213,7 @@ namespace Baas.Core.Services
                 {
                     Owner = data.Participant,
                     //TODO Quitar la URL en duro y pasarla por environtment  
-                    CidUri = string.Concat("https://infura-ipfs.io/ipfs/", data.Cid),
+                    CidUri = new Uri(string.Concat("https://infura-ipfs.io/ipfs/", data.Cid)),
                     Cid = data.Cid,
                     CreateDate = UnixTimeToDateTime(data.RecordDate)
                 };

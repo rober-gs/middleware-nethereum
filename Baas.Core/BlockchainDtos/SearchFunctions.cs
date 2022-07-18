@@ -28,37 +28,6 @@ namespace Baas.Core.BlockchainDtos
             public virtual string Cid { get; set; }
         }
 
-        public partial class ParticipateFunction : ParticipateFunctionBase { }
-
-        [Function("Participate", "uint256")]
-        public class ParticipateFunctionBase : FunctionMessage
-        {
-            [Parameter("string", "_uuid", 1)]
-            public virtual string Uuid { get; set; }
-            [Parameter("string", "_cid", 2)]
-            public virtual string Cid { get; set; }
-        }
-
-        public partial class SetOwnerFunction : SetOwnerFunctionBase { }
-
-        [Function("setOwner")]
-        public class SetOwnerFunctionBase : FunctionMessage
-        {
-            [Parameter("address", "_newOwner", 1)]
-            public virtual string NewOwner { get; set; }
-        }
-
-        public partial class SetScoreFunction : SetScoreFunctionBase { }
-
-        [Function("SetScore")]
-        public class SetScoreFunctionBase : FunctionMessage
-        {
-            [Parameter("string", "_uuid", 1)]
-            public virtual string Uuid { get; set; }
-            [Parameter("string", "_cid", 2)]
-            public virtual string Cid { get; set; }
-        }
-
         public partial class DetailParticipationFunction : DetailParticipationFunctionBase { }
 
         [Function("DetailParticipation", typeof(DetailParticipationOutputDTO))]
@@ -79,6 +48,28 @@ namespace Baas.Core.BlockchainDtos
             public virtual string Uuid { get; set; }
         }
 
+        public partial class ParticipateFunction : ParticipateFunctionBase { }
+
+        [Function("Participate", "uint256")]
+        public class ParticipateFunctionBase : FunctionMessage
+        {
+            [Parameter("string", "_uuid", 1)]
+            public virtual string Uuid { get; set; }
+            [Parameter("string", "_cid", 2)]
+            public virtual string Cid { get; set; }
+        }
+
+        public partial class SetScoreFunction : SetScoreFunctionBase { }
+
+        [Function("SetScore")]
+        public class SetScoreFunctionBase : FunctionMessage
+        {
+            [Parameter("string", "_uuid", 1)]
+            public virtual string Uuid { get; set; }
+            [Parameter("string", "_cid", 2)]
+            public virtual string Cid { get; set; }
+        }
+
         public partial class OwnerContractFunction : OwnerContractFunctionBase { }
 
         [Function("ownerContract", "address")]
@@ -95,12 +86,23 @@ namespace Baas.Core.BlockchainDtos
 
         }
 
+        public partial class SetOwnerFunction : SetOwnerFunctionBase { }
+
+        [Function("setOwner")]
+        public class SetOwnerFunctionBase : FunctionMessage
+        {
+            [Parameter("address", "_newOwner", 1)]
+            public virtual string NewOwner { get; set; }
+        }
+
         public partial class BroadcastEndingEventEventDTO : BroadcastEndingEventEventDTOBase { }
 
         [Event("BroadcastEndingEvent")]
         public class BroadcastEndingEventEventDTOBase : IEventDTO
         {
-            [Parameter("string", "uuid", 1, false)]
+            [Parameter("address", "owner", 1, false)]
+            public virtual string Owner { get; set; }
+            [Parameter("string", "uuid", 2, false)]
             public virtual string Uuid { get; set; }
         }
 
@@ -173,12 +175,6 @@ namespace Baas.Core.BlockchainDtos
 
 
 
-
-
-
-
-
-
         public partial class DetailParticipationOutputDTO : DetailParticipationOutputDTOBase { }
 
         [FunctionOutput]
@@ -218,6 +214,10 @@ namespace Baas.Core.BlockchainDtos
             [Parameter("uint256", "endDate", 10)]
             public virtual BigInteger EndDate { get; set; }
         }
+
+
+
+
 
         public partial class OwnerContractOutputDTO : OwnerContractOutputDTOBase { }
 

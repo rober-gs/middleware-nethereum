@@ -1,13 +1,11 @@
 ﻿using Middelware;
 
-var builder = WebApplication.CreateBuilder(args);
-var startup = new Startup(builder.Configuration);
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+Startup startup = new Startup(builder.Configuration);
 
 startup.ConfigureServices(builder.Services);
 
-var app = builder.Build();
-
-
+WebApplication app = builder.Build();
 
 startup.Configure(app, app.Environment);
 

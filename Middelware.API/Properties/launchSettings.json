@@ -24,7 +24,7 @@
         "IPFS_SERVER_BASE_URL": "https://ipfs.infura.io",
         "IPFS_SERVER_PORT": ":5001",
         "IPFS_API_VERSION": "/api/v0/",
-        "SMARTCONTRACT_ADDRESS_SEARCH_CURP": "0xf5f1Dc64D5ff06CFbe862c9D154e279A46aD486a",
+        "SMARTCONTRACT_ADDRESS_SEARCH_CURP": "0xca6146d009a040b9ac3156c3c46bc54284598e26",
         "TEST_ENV": "JALA PERRO"
       }
     },
