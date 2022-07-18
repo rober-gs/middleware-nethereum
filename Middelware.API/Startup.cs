@@ -9,9 +9,13 @@ namespace Middelware
 {
     public class Startup
     {
+        private readonly string NODE_NAME;
+        
+        
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            NODE_NAME = Environment.GetEnvironmentVariable("NODE_NAME") ?? string.Empty;
         }
 
         public IConfiguration Configuration { get; }
@@ -37,8 +41,8 @@ namespace Middelware
             services.AddSwaggerGen(options => {
                 options.SwaggerDoc("v1", new OpenApiInfo {
                     Version = "v1",
-                    Title = "Dicio Alliance Middelware",
-                    Description = "Middelware Backend, Blockchain & IPFS",
+                    Title =  string.Concat(NODE_NAME, " - Dicio Alliance"),
+                    Description = "Blockchain & IPFS",
                     TermsOfService = new Uri("https://dicio.com"),
                 });
                 // var xmlPath = Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml");
