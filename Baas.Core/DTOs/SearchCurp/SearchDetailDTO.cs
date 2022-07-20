@@ -26,6 +26,8 @@ namespace Baas.Core.DTOs
 
         [JsonPropertyName("curp")]
         public string Curp { get; set; }
+        [JsonPropertyName("score")]
+        public string Score { get; set; }
 
         [JsonPropertyName("create-broadcast")]
         public DateTime CreateBroadcast { get; set; }

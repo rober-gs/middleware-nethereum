@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Data.Common;
+using System;
 using System.Collections.Generic;
 using System.Numerics;
 using System.Threading.Tasks;
@@ -168,6 +169,7 @@ namespace Baas.Core.Services
                     EndBroadcast =UnixTimeToDateTime(data.EndBroadcast),
                     //TODO realizar enum
                     State = data.State,
+                    Score = data.Score,
                     Records = (int)data.Records,
                     EndDate = UnixTimeToDateTime(data.EndDate)
                 };
